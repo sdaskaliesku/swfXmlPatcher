@@ -1,0 +1,24 @@
+{
+  "input": "src\\test\\resources\\original seventysixmenu swf.xml",
+  "output": "src\\test\\resources\\seventysixmenu22.swf.xml",
+  "configs": [
+    {
+      "path": "swf/displayRect/@Xmax",
+      "value": "102400"
+    },
+    {
+      "path": "swf/displayRect/@Ymax",
+      "value": "28800"
+    },
+    {
+      "path": "swf/displayRect/@nbits",
+      "value": "18"
+    }
+
+  ,
+    {
+      "path": "swf/displayRect/@nbits",
+      "value": "18"
+    }
+  ]
+}
