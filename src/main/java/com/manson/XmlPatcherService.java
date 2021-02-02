@@ -1,5 +1,6 @@
 package com.manson;
 
+import com.manson.Main.PatchArguments;
 import java.io.File;
 import java.io.FileInputStream;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,11 +17,11 @@ import org.w3c.dom.NodeList;
 
 public class XmlPatcherService {
 
-    private final Config config;
+    private final PatchArguments arguments;
     private final XPath xPath;
 
-    public XmlPatcherService(Config config) {
-        this.config = config;
+    public XmlPatcherService(PatchArguments arguments) {
+        this.arguments = arguments;
         this.xPath = XPathFactory.newInstance().newXPath();
     }
 
@@ -28,7 +29,8 @@ public class XmlPatcherService {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(new FileInputStream(config.getInput()));
+            Document doc = dBuilder.parse(new FileInputStream(arguments.getInputFile()));
+            Config config = arguments.getConfig();
             for (XmlConfig xmlConfig : config.getConfigs()) {
                 try {
                     NodeList nodes =
@@ -37,13 +39,14 @@ public class XmlPatcherService {
                         nodes.item(0).setNodeValue(xmlConfig.getValue());
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
                     System.err.println("Unable to patch value: " + xmlConfig.getPath());
+                    e.printStackTrace();
                 }
             }
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.transform(new DOMSource(doc), new StreamResult(new File(config.getOutput())));
+            transformer.transform(new DOMSource(doc), new StreamResult(new File(arguments.getOutputFile())));
         } catch (Exception e) {
+            System.err.println("Unable to process file: " + arguments.getInputFile());
             e.printStackTrace();
         }
         return null;

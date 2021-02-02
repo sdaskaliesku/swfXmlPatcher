@@ -1,6 +1,4 @@
 {
-  "input": "src\\test\\resources\\original seventysixmenu swf.xml",
-  "output": "src\\test\\resources\\seventysixmenu22.swf.xml",
   "configs": [
     {
       "path": "swf/displayRect/@Xmax",
@@ -13,12 +11,18 @@
     {
       "path": "swf/displayRect/@nbits",
       "value": "18"
-    }
-
-  ,
+    },
     {
-      "path": "swf/displayRect/@nbits",
-      "value": "18"
+      "path": "/swf[@compression=\"ZLIB\"]/tags//item[514]/matrix/@nTranslateBits",
+      "value": "17"
+    },
+    {
+      "path": "/swf[@compression=\"ZLIB\"]/tags//item[514]/matrix/@translateX",
+      "value": "64500"
+    },
+    {
+      "path": "/swf[@compression=\"ZLIB\"]/tags//item[514]/matrix/@translateY",
+      "value": "5700"
     }
   ]
 }
